@@ -1,1 +1,2 @@
-# DS4D_Project
+# Data Science for Design
+## Group Project
