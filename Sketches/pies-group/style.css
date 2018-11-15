@@ -1,0 +1,9 @@
+body, html {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #fff;
+	font-family: "Raleway", sans-serif;
+	text-transform: uppercase;
+}
