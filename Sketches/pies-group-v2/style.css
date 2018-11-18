@@ -1,0 +1,36 @@
+body, html {
+	/*height: 100%;*/
+	margin: 0;
+	padding: 0;
+	/*overflow: hidden;*/
+	background-color: #fff;
+	font-family: sans-serif;
+}
+
+/*#svgDiv {
+	position: relative;
+	display: block;
+}
+*/
+
+.piediv {
+	display: inline-block;
+	width: 250px;
+	padding: 10px;
+	text-align: center;
+}
+
+.tooltip {
+  /*background: #eee;*/
+  /*box-shadow: 0 0 5px #999999;*/
+  /*color: #333;*/
+  display: none;
+  /*font-size: 18px;*/
+  /*left: 130px;*/
+  /*padding: 10px;*/
+  position: absolute;
+  /*text-align: center;*/
+/*  top: 95px;*/
+  /*width: 80px;*/
+  z-index: 10;
+}

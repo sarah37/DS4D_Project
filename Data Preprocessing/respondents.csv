@@ -1,0 +1,88 @@
+characteristic,label,number
+Gender,Male,60994
+Gender,Female,84575
+Age,17-24,6538 
+Age,25-34,11409
+Age,35-44,17800
+Age,45-54,26482
+Age,55-64,33216
+Age,65-74,29585
+Age,75 and over,20539
+Ethnicity,White,137697
+Ethnicity,"Asian, Asian Scottish or Asian British",2271
+Ethnicity,Mixed or multiple ethnic groups,779 
+Ethnicity,Other ethnic group,586 
+Ethnicity,"African, Caribbean or Black",539 
+Ethnicity,No response or invalid response,3697 
+Religion,Church of Scotland,62917 
+Religion,None,38995 
+Religion,Roman Catholic,22694 
+Religion,Other Christian,11391 
+Religion,Muslim,1370 
+Religion,Pagan,970 
+Religion,Another religion (non-Christian),751 
+Religion,Buddhist,460 
+Religion,Sikh,395 
+Religion,Hindu,278 
+Religion,Jewish,228 
+Religion,No response or invalid response,5120
+Sexual orientation,Heterosexual,132874 
+Sexual orientation,Gay or lesbian,1545 
+Sexual orientation,Other,1496
+Sexual orientation,Bisexual,656 
+Sexual orientation,Not answered,8998 
+Deprivation (SIMD),Quintile 1,24278
+Deprivation (SIMD),Quintile 2,26451 
+Deprivation (SIMD),Quintile 3,34504
+Deprivation (SIMD),Quintile 4,31839
+Deprivation (SIMD),Quintile 5,28070
+Urban-Rural,Large urban areas,55979
+Urban-Rural,Other urban areas,34216
+Urban-Rural,Remote rural,20516
+Urban-Rural,Accessible rural,18279
+Urban-Rural,Accessible small towns,10571
+Urban-Rural,Remote small towns,5191
+Work Status,Retired,56265
+Work Status,Work full time,46996
+Work Status,Work part time,17761
+Work Status,Do not work due to illness or disability,8517
+Work Status,Unemployed / Looking for work,3881
+Work Status,In full-time education or training,3511
+Work Status,Other,5296
+Work Status,No response or invalid response,3342
+Carers,Not a carer,116090
+Carers,Cares for up to 19 hours a week,12558
+Carers,Cares for 20-34 hours a week,2389
+Carers,Cares for 35 or more hours a week,8197
+Carers,No response or invalid response,6335
+Health status,Good,83556
+Health status,Fair,50619
+Health status,Bad,8175
+Health status,No response or invalid response,3219
+Limitation of day-to-day activities,Not limited,88740
+Limitation of day-to-day activities,Limited a little,31000
+Limitation of day-to-day activities,Limited a lot,21409
+Limitation of day-to-day activities,No response or invalid response,4420
+"Interpretation, translation or other communication support needs",No,139105
+"Interpretation, translation or other communication support needs",Yes,3626
+"Interpretation, translation or other communication support needs",No response or invalid response,2838
+Long-term condition,Chronic pain lasting at least 3 months,19628
+Long-term condition,Physical disability,17767
+Long-term condition,Deafness or severe hearing impairment,14648
+Long-term condition,Mental Health Condition,9307
+Long-term condition,Blindness or severe vision impairment,3536
+Long-term condition,Learning disability,1959
+Long-term condition,Another long-term condition,47246
+Long-term condition,None,62841
+GP Practice Size,"< 2,500",27388
+GP Practice Size,"2,500 - 4,999",41541
+GP Practice Size,"5,000 - 7,499",34917
+GP Practice Size,"7,500 - 9,999",24724
+GP Practice Size,"10,000+",16999
+Frequency of contact with GP Practice,Did not contact practice,12581
+Frequency of contact with GP Practice,Once,15994
+Frequency of contact with GP Practice,2-4 times,59891
+Frequency of contact with GP Practice,5-10 times,36453
+Frequency of contact with GP Practice,More than 10 times,16779
+Frequency of contact with GP Practice,Can't remember / don't know,1704
+Frequency of contact with GP Practice,No response or invalid response,2167
