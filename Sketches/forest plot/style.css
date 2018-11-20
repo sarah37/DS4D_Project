@@ -1,0 +1,38 @@
+body, html {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	font-family: "Raleway", sans-serif;
+	
+}
+
+.chartdiv {
+	display: inline-block;
+}
+
+line.grid {
+	stroke: #000000;
+}
+
+.title{
+	text-align:center;
+}
+
+
+.axis line {
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+
+
+circle {
+	stroke-width: 1;
+}
+
+circle.odds_ratio {
+	fill: #000000;
+}
+
+
