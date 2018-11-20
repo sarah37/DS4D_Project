@@ -1,0 +1,131 @@
+﻿x,y,value
+Age,Access,1.013428571
+Carers,Access,0.858190476
+Deprivation (SIMD),Access,0.9015
+Ethnicity,Access,0.9680625
+Frequency of contact with GP Practice,Access,1.03775
+Gender,Access,1.11
+GP Practice Size,Access,0.999892857
+Health status,Access,0.722857143
+Limitation of day-to-day activities,Access,0.900666667
+Long-term condition,Access,1.005444444
+Percentage of GP practice list in 15% of most deprived areas,Access,0.988
+Religion,Access,0.97464
+Sexual orientation,Access,0.94375
+Urban-Rural,Access,0.996314286
+Work Status,Access,0.836904762
+Age,At your GP surgery,1.026333333
+Carers,At your GP surgery,0.851888889
+Deprivation (SIMD),At your GP surgery,1.29125
+Ethnicity,At your GP surgery,0.86875
+Frequency of contact with GP Practice,At your GP surgery,1.02275
+Gender,At your GP surgery,1.129
+GP Practice Size,At your GP surgery,0.952
+Health status,At your GP surgery,0.714333333
+Limitation of day-to-day activities,At your GP surgery,0.948
+Long-term condition,At your GP surgery,1.021666667
+Percentage of GP practice list in 15% of most deprived areas,At your GP surgery,0.991666667
+Religion,At your GP surgery,0.946466667
+Sexual orientation,At your GP surgery,0.990416667
+Urban-Rural,At your GP surgery,1.1693
+Work Status,At your GP surgery,0.797222222
+Age,Care and treatment,1.014
+Carers,Care and treatment,0.898
+Deprivation (SIMD),Care and treatment,0.889
+Ethnicity,Care and treatment,0.57975
+Gender,Care and treatment,0.91
+GP Practice Size,Care and treatment,0.94525
+Health status,Care and treatment,0.698
+"Interpretation, translation or other communication support needs",Care and treatment,0.804
+Limitation of day-to-day activities,Care and treatment,0.6455
+Long-term condition,Care and treatment,0.9014
+Percentage of GP practice list in 15% of most deprived areas,Care and treatment,0.996
+Religion,Care and treatment,0.8806
+Sexual orientation,Care and treatment,0.701
+Work Status,Care and treatment,0.7755
+Age,Doctor,1.022333333
+Carers,Doctor,0.8595
+Deprivation (SIMD),Doctor,1.03975
+Ethnicity,Doctor,0.813666667
+Frequency of contact with GP Practice,Doctor,1.015291667
+Gender,Doctor,1.198666667
+GP Practice Size,Doctor,0.96625
+Health status,Doctor,0.585666667
+Limitation of day-to-day activities,Doctor,0.75125
+Long-term condition,Doctor,0.936529412
+Percentage of GP practice list in 15% of most deprived areas,Doctor,0.996
+Religion,Doctor,0.915033333
+Sexual orientation,Doctor,0.8035
+Urban-Rural,Doctor,1.1112
+Work Status,Doctor,0.885555556
+Age,Medicines,1.014666667
+Carers,Medicines,0.909166667
+Deprivation (SIMD),Medicines,1.100375
+Ethnicity,Medicines,0.74675
+Frequency of contact with GP Practice,Medicines,0.9807
+Gender,Medicines,0.916
+GP Practice Size,Medicines,0.95485
+Health status,Medicines,0.621416667
+"Interpretation, translation or other communication support needs",Medicines,0.6738
+Limitation of day-to-day activities,Medicines,0.71325
+Long-term condition,Medicines,0.842111111
+Percentage of GP practice list in 15% of most deprived areas,Medicines,0.996
+Religion,Medicines,0.8249
+Sexual orientation,Medicines,0.948625
+Urban-Rural,Medicines,0.915466667
+Work Status,Medicines,0.835138889
+Age,Nurse,1.014166667
+Carers,Nurse,0.9024
+Deprivation (SIMD),Nurse,1.226625
+Ethnicity,Nurse,0.7101875
+Frequency of contact with GP Practice,Nurse,1.01625
+Gender,Nurse,1.223666667
+GP Practice Size,Nurse,0.907166667
+Health status,Nurse,0.7315
+Limitation of day-to-day activities,Nurse,0.793916667
+Long-term condition,Nurse,0.9599375
+Percentage of GP practice list in 15% of most deprived areas,Nurse,0.995
+Religion,Nurse,0.727966667
+Urban-Rural,Nurse,1.0484
+Work Status,Nurse,0.769277778
+Age,Out of Hours,1.007
+Carers,Out of Hours,0.745777778
+Deprivation (SIMD),Out of Hours,1.015125
+Ethnicity,Out of Hours,0.740375
+First OOH service contacted,Out of Hours,1.348619048
+First OOH service treated or advised by,Out of Hours,1.839833333
+Frequency of contact with GP Practice,Out of Hours,0.975875
+Gender,Out of Hours,0.92
+Health status,Out of Hours,0.672583333
+"Interpretation, translation or other communication support needs",Out of Hours,0.708
+Limitation of day-to-day activities,Out of Hours,0.855875
+Long-term condition,Out of Hours,0.919
+Religion,Out of Hours,0.79695
+Sexual orientation,Out of Hours,0.82975
+Urban-Rural,Out of Hours,0.8893
+Work Status,Out of Hours,0.78225
+Age,Overall care,1.018666667
+Carers,Overall care,0.839444444
+Deprivation (SIMD),Overall care,1.07375
+Ethnicity,Overall care,0.86125
+Frequency of contact with GP Practice,Overall care,1.0165
+Gender,Overall care,1.218
+GP Practice Size,Overall care,0.894083333
+Health status,Overall care,0.6395
+Limitation of day-to-day activities,Overall care,0.829666667
+Long-term condition,Overall care,1.006727273
+Percentage of GP practice list in 15% of most deprived areas,Overall care,0.993
+Religion,Overall care,0.908133333
+Urban-Rural,Overall care,0.9938
+Work Status,Overall care,0.785777778
+Age,Referrals,1.014
+Carers,Referrals,0.884666667
+Deprivation (SIMD),Referrals,1.15425
+Frequency of contact with GP Practice,Referrals,1.0135
+Gender,Referrals,1.053
+GP Practice Size,Referrals,0.93125
+Health status,Referrals,0.75
+Limitation of day-to-day activities,Referrals,0.754
+Religion,Referrals,0.9067
+Urban-Rural,Referrals,1.0488
+Work Status,Referrals,0.886
