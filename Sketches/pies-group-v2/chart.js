@@ -30,7 +30,7 @@ var circleScale = d3.scalePow()
 
 var colourScale = d3.scaleLinear()
                 .domain([0, 1, 1.7])
-                .range(['#d73027', '#e5e2db', '#1a9850'])//#fee08b
+                .range(['#f55f21', '#ccc', '#77a1e5'])//#fee08b #1a9850
                 .interpolate(d3.interpolateHcl);
 // d3.scaleLinear()
 //         .domain([0, 2])

@@ -1,88 +1,105 @@
-characteristic,label,number
-Gender,Male,60994
-Gender,Female,84575
-Age,17-24,6538 
-Age,25-34,11409
-Age,35-44,17800
-Age,45-54,26482
-Age,55-64,33216
-Age,65-74,29585
-Age,75 and over,20539
-Ethnicity,White,137697
-Ethnicity,"Asian, Asian Scottish or Asian British",2271
-Ethnicity,Mixed or multiple ethnic groups,779 
-Ethnicity,Other ethnic group,586 
-Ethnicity,"African, Caribbean or Black",539 
-Ethnicity,No response or invalid response,3697 
-Religion,Church of Scotland,62917 
-Religion,None,38995 
-Religion,Roman Catholic,22694 
-Religion,Other Christian,11391 
-Religion,Muslim,1370 
-Religion,Pagan,970 
-Religion,Another religion (non-Christian),751 
-Religion,Buddhist,460 
-Religion,Sikh,395 
-Religion,Hindu,278 
-Religion,Jewish,228 
-Religion,No response or invalid response,5120
-Sexual orientation,Heterosexual,132874 
-Sexual orientation,Gay or lesbian,1545 
-Sexual orientation,Other,1496
-Sexual orientation,Bisexual,656 
-Sexual orientation,Not answered,8998 
-Deprivation (SIMD),Quintile 1,24278
-Deprivation (SIMD),Quintile 2,26451 
-Deprivation (SIMD),Quintile 3,34504
-Deprivation (SIMD),Quintile 4,31839
-Deprivation (SIMD),Quintile 5,28070
-Urban-Rural,Large urban areas,55979
-Urban-Rural,Other urban areas,34216
-Urban-Rural,Remote rural,20516
-Urban-Rural,Accessible rural,18279
-Urban-Rural,Accessible small towns,10571
-Urban-Rural,Remote small towns,5191
-Work Status,Retired,56265
-Work Status,Work full time,46996
-Work Status,Work part time,17761
-Work Status,Do not work due to illness or disability,8517
-Work Status,Unemployed / Looking for work,3881
-Work Status,In full-time education or training,3511
-Work Status,Other,5296
-Work Status,No response or invalid response,3342
-Carers,Not a carer,116090
-Carers,Cares for up to 19 hours a week,12558
-Carers,Cares for 20-34 hours a week,2389
-Carers,Cares for 35 or more hours a week,8197
-Carers,No response or invalid response,6335
-Health status,Good,83556
-Health status,Fair,50619
-Health status,Bad,8175
-Health status,No response or invalid response,3219
-Limitation of day-to-day activities,Not limited,88740
-Limitation of day-to-day activities,Limited a little,31000
-Limitation of day-to-day activities,Limited a lot,21409
-Limitation of day-to-day activities,No response or invalid response,4420
-"Interpretation, translation or other communication support needs",No,139105
-"Interpretation, translation or other communication support needs",Yes,3626
-"Interpretation, translation or other communication support needs",No response or invalid response,2838
-Long-term condition,Chronic pain lasting at least 3 months,19628
-Long-term condition,Physical disability,17767
-Long-term condition,Deafness or severe hearing impairment,14648
-Long-term condition,Mental Health Condition,9307
-Long-term condition,Blindness or severe vision impairment,3536
-Long-term condition,Learning disability,1959
-Long-term condition,Another long-term condition,47246
-Long-term condition,None,62841
-GP Practice Size,"< 2,500",27388
-GP Practice Size,"2,500 - 4,999",41541
-GP Practice Size,"5,000 - 7,499",34917
-GP Practice Size,"7,500 - 9,999",24724
-GP Practice Size,"10,000+",16999
-Frequency of contact with GP Practice,Did not contact practice,12581
-Frequency of contact with GP Practice,Once,15994
-Frequency of contact with GP Practice,2-4 times,59891
-Frequency of contact with GP Practice,5-10 times,36453
-Frequency of contact with GP Practice,More than 10 times,16779
-Frequency of contact with GP Practice,Can't remember / don't know,1704
-Frequency of contact with GP Practice,No response or invalid response,2167
+characteristic,label,percentage
+Gender,Male,0.41900404619115333
+Gender,Female,0.5809959538088466
+Age,17-24,0.04491340876148081
+Age,25-34,0.0783752035117367
+Age,35-44,0.12227878188350541
+Age,45-54,0.18192060122690956
+Age,55-64,0.2281804505080065
+Age,65-74,0.20323695292266897
+Age,75 and over,0.141094601185692
+Ethnicity,White,0.9459225521917441
+Ethnicity,"Asian, Asian Scottish or Asian British",0.015600849081878696
+Ethnicity,Mixed or multiple ethnic groups,0.005351414106025321
+Ethnicity,Other ethnic group,0.004025582369872706
+Ethnicity,"African, Caribbean or Black",0.0037027114289443492
+Ethnicity,No response or invalid response,0.025396890821534804
+Religion,Church of Scotland,0.43221427639126464
+Religion,None,0.2678798370532188
+Religion,Roman Catholic,0.15589857730698156
+Religion,Other Christian,0.07825155081095563
+Religion,Muslim,0.009411344448337215
+Religion,Pagan,0.006663506653202262
+Religion,Another religion (non-Christian),0.005159065460365875
+Religion,Buddhist,0.0031600134644051963
+Religion,Sikh,0.0027134898226957665
+Religion,Hindu,0.0019097472676187924
+Religion,Jewish,0.0015662675432269234
+Religion,No response or invalid response,0.0351723237777274
+Sexual orientation,Heterosexual,0.9127904979769044
+Sexual orientation,Gay or lesbian,0.010613523483708757
+Sexual orientation,Other,0.010276913353804725
+Sexual orientation,Bisexual,0.004506453984021323
+Sexual orientation,Not answered,0.06181261120156077
+Deprivation (SIMD),Quintile 1,0.16678001497571598
+Deprivation (SIMD),Quintile 2,0.18170764379778662
+Deprivation (SIMD),Quintile 3,0.23702848820834105
+Deprivation (SIMD),Quintile 4,0.21872101889825443
+Deprivation (SIMD),Quintile 5,0.19282951727359535
+Urban-Rural,Large urban areas,0.38455302983464884
+Urban-Rural,Other urban areas,0.2350500449958439
+Urban-Rural,Remote rural,0.14093660051247175
+Urban-Rural,Accessible rural,0.12556931764317952
+Urban-Rural,Accessible small towns,0.07261848333092898
+Urban-Rural,Remote small towns,0.03566006498636386
+Work Status,Retired,0.38651773385817034
+Work Status,Work full time,0.32284346255040564
+Work Status,Work part time,0.12201086769847976
+Work Status,Do not work due to illness or disability,0.05850833625291099
+Work Status,Unemployed / Looking for work,0.026660896207296884
+Work Status,In full-time education or training,0.024119146246797053
+Work Status,Other,0.03638137240758678
+Work Status,No response or invalid response,0.022958184778352535
+Carers,Not a carer,0.7974912240930417
+Carers,Cares for up to 19 hours a week,0.08626836757826185
+Carers,Cares for 20-34 hours a week,0.01641146123144351
+Carers,Cares for 35 or more hours a week,0.05631006601680303
+Carers,No response or invalid response,0.04351888108044982
+Health status,Good,0.5739958370257404
+Health status,Fair,0.3477320033798405
+Health status,Bad,0.05615893493807061
+Health status,No response or invalid response,0.022113224656348535
+Limitation of day-to-day activities,Not limited,0.6096078148506894
+Limitation of day-to-day activities,Limited a little,0.21295742912295887
+Limitation of day-to-day activities,Limited a lot,0.14707114839011054
+Limitation of day-to-day activities,No response or invalid response,0.030363607636241234
+"Interpretation, translation or other communication support needs",No,0.9555949412306192
+"Interpretation, translation or other communication support needs",Yes,0.024909149612898352
+"Interpretation, translation or other communication support needs",No response or invalid response,0.019495909156482492
+Long-term condition,Chronic pain lasting at least 3 months,0.13483640060727214
+Long-term condition,Physical disability,0.12205208526540678
+Long-term condition,Deafness or severe hearing impairment,0.10062582005784199
+Long-term condition,Mental Health Condition,0.06393531589830252
+Long-term condition,Blindness or severe vision impairment,0.024290886108992986
+Long-term condition,Learning disability,0.013457535601673433
+Long-term condition,Another long-term condition,0.324560861172365
+Long-term condition,None,0.431692187210189
+GP Practice Size,"< 2,500",0.18814445383289025
+GP Practice Size,"2,500 - 4,999",0.2853698246192527
+GP Practice Size,"5,000 - 7,499",0.2398656307318179
+GP Practice Size,"7,500 - 9,999",0.16984385411729144
+GP Practice Size,"10,000+",0.11677623669874768
+Frequency of contact with GP Practice,Did not contact practice,0.08642636825148212
+Frequency of contact with GP Practice,Once,0.1098722942384711
+Frequency of contact with GP Practice,2-4 times,0.4114268834710687
+Frequency of contact with GP Practice,5-10 times,0.2504173278651361
+Frequency of contact with GP Practice,More than 10 times,0.11526492591142345
+Frequency of contact with GP Practice,Can't remember / don't know,0.0117057890072749
+Frequency of contact with GP Practice,No response or invalid response,0.014886411255143608
+First OOH service contacted,NHS 24,0.69
+First OOH service contacted,A&E / Casualty,0.12
+First OOH service contacted,999 Emergency service,0.05
+First OOH service contacted,Pharmacist / Chemist,0.04
+First OOH service contacted,Out of Hours Service,0.04
+First OOH service contacted,My own GP surgery,0.03
+First OOH service contacted,District / Community Nurse,0.01
+First OOH service contacted,Other,0.02
+First OOH service treated or advised by,Out of Hours Service,0.27
+First OOH service treated or advised by,Phone advice only,0.14
+First OOH service treated or advised by,Pharmacist / Chemist,0.04
+First OOH service treated or advised by,My own GP surgery,0.05
+First OOH service treated or advised by,Home visit from another doctor/nurse,0.08
+First OOH service treated or advised by,Emergency dental,0.01
+First OOH service treated or advised by,Ambulance Paramedics,0.1
+First OOH service treated or advised by,A&E / Casualty,0.27
+First OOH service treated or advised by,Other,0.03
