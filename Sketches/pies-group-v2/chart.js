@@ -23,13 +23,6 @@ var tooltip = d3.select('#chart') // select element in the DOM with id 'chart'
 	.append('div') // append a div element to the element we've selected                                    
 	.attr('class', 'tooltip');
 
-grid = []
-for (var i = 0; i < 5; i++) {
-	for (var j=0; j < 3; j++) {
-		grid.push([i*250+125,j*250+125])
-	}
-}
-
 var circleScale = d3.scalePow()
 	.exponent([0.5])
 	.domain([0, 3])
