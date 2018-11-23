@@ -14,11 +14,6 @@ var tau = 2 * Math.PI;
 
 var f = d3.format(".2f");
 
-// var svg = d3.select("#svgDiv")
-// 	.append("svg")
-// 	.attr("width", w)
-// 	.attr("height", h);
-
 var tooltip = d3.select('#chart') // select element in the DOM with id 'chart'
 	.append('div') // append a div element to the element we've selected                                    
 	.attr('class', 'tooltip');
@@ -32,17 +27,12 @@ var colourScale = d3.scaleLinear()
                 .domain([0, 1, 1.7])
                 .range(['#f55f21', '#ccc', '#77a1e5'])//#fee08b #1a9850
                 .interpolate(d3.interpolateHcl);
-// d3.scaleLinear()
-//         .domain([0, 2])
-//         .range(['#C6DBEF', '#518ede'])
-//         .interpolate(d3.interpolateHcl); 
-// define outer arc
+
 var arc = d3.arc()
 	.innerRadius(0)
 	.outerRadius(function (d) {
 		return (circleScale(d.data.mean)); 
   	})
-	//.padAngle(0.001*tau)
 
 var characteristics = ['Gender', 'Ethnicity', 'Religion', 'Sexual orientation',
        'Deprivation (SIMD)', 'Urban-Rural', 'Work Status', 'Carers',
