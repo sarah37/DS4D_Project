@@ -1,0 +1,36 @@
+body, html {
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	font-family: sans-serif;
+}
+
+#chart1, #chart2 {
+}
+
+.hidden {
+	display: none;
+}
+
+.piediv {
+	display: inline-block;
+	width: 250px;
+	padding: 10px;
+	text-align: center;
+}
+
+.tooltip {
+	display: none;
+	position: absolute;
+	z-index: 10;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+
+.axis text {
+	font-size: 11px;
+}
