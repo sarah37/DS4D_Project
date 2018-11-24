@@ -1,6 +1,8 @@
+//set the size of each rectangle cell in the heatmap
   var itemSize = 80;
   var cellSize = itemSize - 1;
 
+//set margin size for the labels of x and y axis
 var margin = {top: 160,right: 20, bottom: 20, left: 200},
     width = 1200 - margin.left - margin.right,
     height = 900 - margin.top - margin.bottom;
@@ -11,12 +13,15 @@ var colourScale = d3.scaleLinear()
                 .range(['#f55f21', '#ccc', '#77a1e5'])//#fee08b #1a9850
                 .interpolate(d3.interpolateHcl);
 
+//set the position and size of the svg
 var svg = d3.select("#chart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   	.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
+//set working on which characteristic 
 var characteristic = 'Gender';
 
 d3.csv('data_with_population.csv')
@@ -32,11 +37,12 @@ d3.csv('data_with_population.csv')
 		datanow = data.filter(function(d) {return d.characteristic==characteristic})
 
 
-
+		//find all groups
 		var x_Group = d3.set(datanow, function(d){
 			return d.group;
 		}).values();
 
+		//find all themes
 		var y_Theme = d3.set(datanow, function(d){
 			return d.theme;
 		}).values();
@@ -47,12 +53,16 @@ d3.csv('data_with_population.csv')
 			return d.base_group;
 		}).values();
 
+
+		//set the mean odds ratio of each theme for base group, (each is 1)
 		for(var i=0; i<y_Theme.length;i++){
 			oddsratios.push({'group': basegroup[0], 
 						'theme': y_Theme[i], 
 						'or_mean': 1});
 		}
 
+
+		//calculate the mean odds ratio of each theme for disserent theme
 		for(var i=0; i< x_Group.length; i++){
 			for (var j=0; j<y_Theme.length;j++){
 				dataset = datanow.filter(function(d) {return (d.theme==y_Theme[j]&&d.group==x_Group[i])})
@@ -66,6 +76,7 @@ d3.csv('data_with_population.csv')
 		console.log(oddsratios);
 
 
+		//set x and y axis scale and domain
 		var xScale = d3.scaleBand()
 	        .range([0,(x_Group.length+1) * itemSize])
 	        .round(0.2);
@@ -87,7 +98,7 @@ d3.csv('data_with_population.csv')
 	        });
 
 		
-
+	    //draw each rectangle cell
 		var cells = svg.selectAll('rect')
 		        .data(oddsratios)
 		        .enter().append('g').append('rect')
@@ -102,7 +113,7 @@ d3.csv('data_with_population.csv')
             		return d.group + ": " + d.or_mean ;
           		});
 
-
+          //draw x and y axis
 		    svg.append("g")
 		        .attr("class", "y axis")
 		        .call(yAxis)
