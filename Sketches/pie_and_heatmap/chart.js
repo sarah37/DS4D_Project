@@ -11,7 +11,7 @@ var tooltip = d3.select(".tooltip")
 
 // colour scale blue - grey - orange
 var colourScale = d3.scaleLinear()
-                .domain([0, 1, 1.7])
+                .domain([0, 1, 2])
                 .range(['#f55f21', '#ccc', '#77a1e5'])//#fee08b #1a9850
                 .interpolate(d3.interpolateHcl);
 
@@ -28,13 +28,6 @@ var arc = d3.arc()
 		return (circleScale(d.data.mean)); 
   	})
 
-var characteristics = ['Gender', 'Ethnicity', 'Religion', 'Sexual orientation',
-       'Deprivation (SIMD)', 'Urban-Rural', 'Work Status', 'Carers',
-       'Health status', 'Limitation of day-to-day activities',
-       'Interpretation, translation or other communication support needs',
-       'Long-term condition', 'GP Practice Size',
-       'Frequency of contact with GP Practice']
-
 
 // READ DATA
 
@@ -48,6 +41,8 @@ d3.csv('data_with_population.csv')
 			d['base_perc'] = +d['base_perc']; 
 		});
 
+		var characteristics = data.map(function(d) {return d.characteristic}) // get all characteristics
+			.filter(function(d,i,arr) {return arr.indexOf(d) === i;}) // filter for unique values
 
 // DRAW PIE CHARTS
 
@@ -55,10 +50,10 @@ d3.csv('data_with_population.csv')
 			var div = d3.select('#chart1').append('div').classed('piediv', true)
 			var title = div.append('div').html(characteristic_now)
 			var g = div.append('svg')
-				.attr('width', 250)
-				.attr('height', 250)
+				.attr('width', 300)
+				.attr('height', 300)
 				.append('g')
-				.attr("transform", "translate(125,125)")
+				.attr("transform", "translate(150,150)")
 
 			var datanow = data.filter(function(d) {return d.characteristic==characteristic_now})
 
