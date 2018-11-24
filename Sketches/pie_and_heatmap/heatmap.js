@@ -1,10 +1,13 @@
+//set the size of each rectangle cell in the heatmap
 var itemSize = 80;
 var cellSize = itemSize - 1;
 
+//set margin size for the labels of x and y axis
 var margin = {top: 160,right: 20, bottom: 20, left: 200},
     width = 1200 - margin.left - margin.right,
     height = 900 - margin.top - margin.bottom;
 
+//set the position and size of the svg
 var svg = d3.select("#chart2").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -15,25 +18,30 @@ function redrawHeatmap(datanow) {
 
 	svg.selectAll('*').remove()
 
+
+	//find all groups
 	var x_Group = d3.set(datanow, function(d){
 		return d.group;
 		}).values();
 
+	//find all themes
 	var y_Theme = d3.set(datanow, function(d){
 		return d.theme;
 		}).values();
 
 	var oddsratios = [];
+
+	//set the mean odds ratio of each theme for base group, (each is 1)
 	var basegroup = d3.set(datanow, function(d){
 		return d.base_group;
 	}).values();
-
 	for(var i=0; i<y_Theme.length;i++){
 		oddsratios.push({'group': basegroup[0],
 				'theme': y_Theme[i], 
 				'or_mean': 1});
 	}
 
+//calculate the mean odds ratio of each theme for disserent theme
 	for(var i=0; i< x_Group.length; i++){
 		for (var j=0; j<y_Theme.length;j++){
 			dataset = datanow.filter(function(d) {return (d.theme==y_Theme[j]&&d.group==x_Group[i])})
@@ -47,6 +55,8 @@ function redrawHeatmap(datanow) {
 	// console.log(oddsratios);
 
 
+
+//set x and y axis scale and domain
 	var xScale = d3.scaleBand()
 		.range([0,(x_Group.length+1) * itemSize])
 		.round(0.2);
@@ -68,7 +78,7 @@ function redrawHeatmap(datanow) {
 	});
 
 			
-
+	//draw each rectangle cell
 			var cells = svg.selectAll('rect')
 			        .data(oddsratios)
 			        .enter().append('g').append('rect')
@@ -83,7 +93,7 @@ function redrawHeatmap(datanow) {
 	            		return d.group + ": " + d.or_mean ;
 	          		});
 
-
+	//draw x and y axis
 			    svg.append("g")
 			        .attr("class", "y axis")
 			        .call(yAxis)

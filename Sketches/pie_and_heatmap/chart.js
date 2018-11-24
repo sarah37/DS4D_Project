@@ -68,30 +68,7 @@ d3.csv('data_with_population.csv').then(function(data) {
 			.attr('height', 300)
 			.append('g')
 			.attr("transform", "translate(150,150)")
-			.attr('id', 'g_' + i)
-
-	})
-
-	// draw
-	drawPies(characteristics, data)
-
-}) // end data
-
-
-// link to go back from heatmap to pies
- d3.select("#goback").on('click', function() {
-	d3.select('#chart1').classed('hidden', false)
-	d3.select('#chart2').classed('hidden', true)
- })
-
-// function to draw/redraw pies
-function drawPies(characteristics, data) {
-
-	// iterate through the characteristics and draw a pie each
-	characteristics.forEach(function(characteristic_now, i, arr) {
-
-		// select the g for this characteristic
-		g = d3.select("#g_" + i)
+			// .attr('id', 'g_' + i)
 
 		// filter out the data for this characteristic from the larger dataset
 		var datanow = data.filter(function(d) {return d.characteristic==characteristic_now})
@@ -114,15 +91,10 @@ function drawPies(characteristics, data) {
 					'mean': mn})
 		})
 
-		console.log(pie(oddsratios))
-
 		// draw segments of the pie
 		var piepic = g.selectAll(".seg")
 			.data(pie(oddsratios))
-
-		piepic.transition().duration(750)
-
-		piepic.enter()
+			.enter()
 			.append("path")
 			.classed("seg", true)
 			.style("fill", function(d,i) {return colourScale(d.data.mean)})
@@ -164,5 +136,19 @@ function drawPies(characteristics, data) {
 			redrawHeatmap(datanow)
 		})
 	})
+
+}) // end data
+
+
+// link to go back from heatmap to pies
+ d3.select("#goback").on('click', function() {
+	d3.select('#chart1').classed('hidden', false)
+	d3.select('#chart2').classed('hidden', true)
+ })
+
+// function to draw/redraw pies
+function drawPies(characteristics, data) {
+
+	
 
 }
