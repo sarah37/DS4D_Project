@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Pie test</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://d3js.org/d3.v5.js"></script>
+	<script type="text/javascript" src="chart.js"></script>
+
+</head>
+
+<body>
+	To access the graph using some <a href="getparam.html?char=GP%20Practice%20Size&theme=Medicines">URL parameter</a>
+<div id="chart"></div>
+<script type="text/javascript">
+	heatQuestion(getParam('char'),getParam('theme'));
+	console.log(getParam('char'));
+	console.log(getParam('theme'));
+</script>
+
+</body>
+</html>
