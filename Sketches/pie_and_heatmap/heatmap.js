@@ -17,8 +17,6 @@ function redrawHeatmap(datanow) {
 
 	heatdiv.selectAll('div').remove()
 
-	// svg.selectAll('*').remove()
-
 	//find all groups
 	var x_Group = d3.set(datanow, function(d){
 		return d.group;
@@ -41,7 +39,7 @@ function redrawHeatmap(datanow) {
 				'or_mean': 1});
 	}
 
-//calculate the mean odds ratio of each theme for disserent theme
+	//calculate the mean odds ratio of each theme for disserent theme
 	for(var i=0; i< x_Group.length; i++){
 		for (var j=0; j<y_Theme.length;j++){
 			dataset = datanow.filter(function(d) {return (d.theme==y_Theme[j]&&d.group==x_Group[i])})
@@ -68,14 +66,6 @@ function redrawHeatmap(datanow) {
 		.tickFormat(function (d) {return d})
 		.tickSize(0)
 		.tickSizeOuter(0);
-
-	// var yScale = d3.scaleBand()
-	// 	.range([0, y_Theme.length * itemSize])
-	// 	.domain(oddsratios.map(function(d){return d.theme;}))
-	// 	.round(0.2);
-
-	// var yAxis = d3.axisLeft(yScale)
-	// 	.tickFormat(function (d) {return d});
 
 	// draw x labels first
 	heatdiv.append("div")
@@ -162,7 +152,6 @@ function redrawHeatmap(datanow) {
 			var theme = d.key
 
 			var data = datanow.filter(function(d) {return d.theme == theme})
-			console.log(data)
 
 			// get number of questions
 			var questions = d3.nest()
@@ -173,8 +162,7 @@ function redrawHeatmap(datanow) {
 			// extend svg to accommodate all questions
 			svg.attr('height', (questions.length + 1) * itemSize)
 
-			// x scale can be reused from the other heatmap
-			// xScale
+			// xScale can be reused from the other heatmap
 
 			// define y scale: starts below the theme row, ends at number of items * itemSize
 			var yScaleQ = d3.scaleBand()
@@ -182,15 +170,12 @@ function redrawHeatmap(datanow) {
 				.domain(questions)
 				.round(0.2);
 
-			// questions on the left
-
-
-
+			// define y axis generator
 			var yAxisQ = d3.axisRight(yScaleQ)
 				.tickFormat(function (d) {return d})
 				.tickSize(0)
 
-			// y axis
+			// draw y axis
 			g.append('g')
 				.attr("transform", "translate(" + 10 + "," + 0 + ")")
 				.attr("class", "y axis")
@@ -214,34 +199,12 @@ function redrawHeatmap(datanow) {
 					else if (d.conf_upper < 1) {return colour_low}
 					else {return colour_med}
 				})
+
 		} // end else
+
 	}) // end on click (row)
 
-	// //draw each rectangle cell
-	// var cells = svg.selectAll('rect')
-	// 	.data(oddsratios)
-	// 	.enter().append('g').append('rect')
-	// 	.attr('class', 'cell')
-	// 	.attr('width', cellSize)
-	// 	.attr('height', cellSize)
-	// 	.attr('y', function(d) { return yScale(d.theme); })
-	// 	.attr('x', function(d) { return xScale(d.group); })
-	// 	.attr('fill', function(d) { return colourScale(+d.or_mean); })
-	// 	.append("title")
-	// 		.text(function(d) {
-	// 		return d.group + ": " + d.or_mean ;
-	// 		});
-
-	// //draw x and y axis
-	// 		    svg.append("g")
-	// 		        .attr("class", "y axis")
-	// 		        .call(yAxis)
-	// 		        .selectAll('text')
-	// 		        .attr('font-weight', 'normal');
-
-	
-
-}
+} // end redrawHeatmap function
 
 
 // from https://bl.ocks.org/mbostock/7555321

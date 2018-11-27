@@ -1,5 +1,7 @@
 // GLOBAL VARIABLES
 
+var scaleAngle = false;
+
 // because tau is better than pi 
 var tau = 2 * Math.PI;
 
@@ -10,12 +12,12 @@ var f = d3.format(".2f");
 var tooltip = d3.select(".tooltip")
 
 // colour scale blue - grey - orange
-var colour_high = '#77a1e5'
-var colour_med = '#fff'
+var colour_high = '#005bd4' //'#77a1e5'
+var colour_med = '#f3f3f3'
 var colour_low = '#f55f21'
 
 var colourScale = d3.scaleLinear()
-                .domain([0, 1, 2])
+                .domain([0, 1, 3])
                 .range([colour_low, colour_med, colour_high])
                 .interpolate(d3.interpolateHcl);
 
@@ -28,15 +30,15 @@ var circleScale = d3.scalePow()
 
 // this function adds start and end angle for the pie
 var pie = d3.pie()
-    .sort(null)
-    .value(function(d) {return d.population_perc})
-    // value will be added later
+    .sort(function(a,b) {return +a.value.mean_odds_ratio - +b.value.mean_odds_ratio;})
+    .value(function(d) {return (scaleAngle ? d.value.population_perc : 1)})
+
 
 // this function computes the path for each pie segment
 var arc = d3.arc()
 	.innerRadius(0)
 	.outerRadius(function (d) {
-		return (circleScale(d.data.mean)); 
+		return (circleScale(d.data.value.mean_odds_ratio));
   	})
 
 
@@ -51,94 +53,101 @@ d3.csv('data_with_population.csv').then(function(data) {
 		d['base_perc'] = +d['base_perc']; 
 	});
 
-	// make a list of all unique characteristics
-	var characteristics = data.map(function(d) {return d.characteristic}) // get all characteristics
-		.filter(function(d,i,arr) {return arr.indexOf(d) === i;}) // filter for unique values
+	// prepare data for pie
+	var data2 = d3.nest()
+		.key(d => d.characteristic)
+		.key(d => d.group)
+		.rollup(function(leaves) { return {"population_perc": d3.mean(leaves, d => d.population_perc),
+			"mean_odds_ratio": d3.mean(leaves, function(d) {return d.odds_ratio}),
+			"base_perc": leaves[0].base_perc,
+			"base_group": leaves[0].base_group
+		} })
+		.entries(data)
 
-// DRAW PIE CHARTS
+	data2.forEach(function(d, i) {
+		this[i].values.push({key: d.values[0].value.base_group, value: {
+			population_perc: d.values[0].value.base_perc,
+			mean_odds_ratio: 1}
+			})
+	}, data2)
 
-	// for each characteristic, add a div, title, svg, and g
-	characteristics.forEach(function(characteristic_now, i, arr) {
+	// DRAW PIE CHARTS
 
-		// append a div for this pie to the general chart div
-		var div = d3.select('#chart1').append('div').classed('piediv', true)
+	var div = d3.select('#chart1')
 
-		// add another div into it and write the title
-		var title = div.append('div').html(characteristic_now)
-		
-		// append an svg and a g into which the pie will be drawn
-		var g = div.append('svg')
-			.attr('width', 300)
-			.attr('height', 300)
-			.append('g')
-			.attr("transform", "translate(150,150)")
-			// .attr('id', 'g_' + i)
+	var piediv = div.selectAll('.piediv')
+		.data(data2)
+		.enter()
+		.append('div')
+		.attr('class', 'piediv')
 
-		// filter out the data for this characteristic from the larger dataset
-		var datanow = data.filter(function(d) {return d.characteristic==characteristic_now})
+	var title = piediv.append('div').html(function(d) {return d.key})
 
-		// prepare data by nesting data by group
-		var nested = d3.nest()
-			.key(function(d) { return d.group; })
-			.entries(datanow);
+	// append an svg and a g into which the pie will be drawn
+	var g = piediv.append('svg')
+		.attr('width', 300)
+		.attr('height', 300)
+		.append('g')
+		.attr("transform", "translate(150,150)")
 
-		// add the base group of the odds ratios as the first entry
-		var oddsratios = [{'group': nested[0].values[0].base_group,
-				'population_perc': nested[0].values[0].base_perc,
-				'mean': 1}]
+	// draw segments of the pie
+	var piepic = g.datum(function(d) {return d.values})
+		.selectAll(".seg")
+		.data(pie)
+		.enter()
+		.append("path")
+		.classed("seg", true)
+		.style("fill", function(d,i) {return colourScale(d.data.value.mean_odds_ratio)})
+		.attr("d", arc)
 
-		// add the other entries by calculating the mean from the nested array
-		nested.forEach(function(d) {
-			var mn = d3.mean(d.values, function(da) {return da.odds_ratio})
-			oddsratios.push({'group': d.key, 
-					'population_perc': d.values[0].population_perc, 
-					'mean': mn})
-		})
+	// draw circle around pie to show the baseline
+	var circ = g.append('circle')
+		.style('fill', 'none')
+		.style('stroke', colour_med)
+		.style('stroke-width', '2px')
+		.style('stroke-dasharray', '3,2')
+		.attr('cx', 0)
+		.attr('cy', 0)
+		.attr('r', circleScale(1))
 
-		// draw segments of the pie
-		var piepic = g.selectAll(".seg")
-			.data(pie(oddsratios))
-			.enter()
-			.append("path")
-			.classed("seg", true)
-			.style("fill", function(d,i) {return colourScale(d.data.mean)})
-			.attr("d", arc)
+	// show tooltip on mouseover and add text
+	piepic.on('mouseover', function(d) {  // when mouse enters div      
+		var tooltip_txt = d.data.key + ": " + f(d.data.value.mean_odds_ratio)
+		tooltip.html(tooltip_txt); // set current label
+		tooltip.style('display', 'block'); // set display
+	});                                                           
 
-		// draw circle around pie to show the baseline
-		var circ = g.append('circle')
-			.style('fill', 'none')
-			.style('stroke', '#ccc')
-			.style('stroke-width', '2px')
-			.style('stroke-dasharray', '10,5')
-			.attr('cx', 0)
-			.attr('cy', 0)
-			.attr('r', circleScale(1))
+	// hide tooltip on mouseout
+	piepic.on('mouseout', function() { // when mouse leaves div                        
+			tooltip.style('display', 'none'); // hide tooltip for that element
+	});
 
-		// show tooltip on mouseover and add text
-		piepic.on('mouseover', function(d) {  // when mouse enters div      
-			var tooltip_txt = d.data.group + ": " + f(d.data.mean)
-			tooltip.html(tooltip_txt); // set current label
-			tooltip.style('display', 'block'); // set display
-		});                                                           
+	// move tooltip with the mouse
+	piepic.on('mousemove', function(d) { // when mouse moves                  
+		tooltip.style('top', (d3.event.layerY + 10) + 'px') // always 10px below the cursor
+			.style('left', (d3.event.layerX + 10) + 'px'); // always 10px to the right of the mouse
+	});
 
-		// hide tooltip on mouseout
-		piepic.on('mouseout', function() { // when mouse leaves div                        
-				tooltip.style('display', 'none'); // hide tooltip for that element
-		});
-
-		// move tooltip with the mouse
-		piepic.on('mousemove', function(d) { // when mouse moves                  
-			tooltip.style('top', (d3.event.layerY + 10) + 'px') // always 10px below the cursor
-				.style('left', (d3.event.layerX + 10) + 'px'); // always 10px to the right of the mouse
-		});
-
-		// clicking on a pie will draw and show the heatmap for that characteristic
-		g.on('click', function() {
-			d3.select('#chart1').classed('hidden', true)
-			d3.select('#chart2').classed('hidden', false)
-			redrawHeatmap(datanow)
-		})
+	// clicking on a pie will draw and show the heatmap for that characteristic
+	piediv.on('click', function(d) {
+		console.log('heatmap for', d.key)
+		d3.select('#chart1').classed('hidden', true)
+		d3.select('#chart2').classed('hidden', false)
+		redrawHeatmap(data.filter(function(da) {return da.characteristic == d.key}))
 	})
+
+	d3.select("#scaleAngle").on("change", function() {
+		// update the value of scaleAngle (true/false)
+		scaleAngle = document.getElementById("scaleAngle").checked
+
+		// redraw
+		updatePies()
+	})
+
+	function updatePies() {
+		piepic.transition().duration(750).attrTween("d", arcTween); // redraw the arcs
+		piepic = piepic.data(pie); // compute the new angles
+	}
 
 }) // end data
 
@@ -148,3 +157,9 @@ d3.select("#goback").on('click', function() {
 	d3.select('#chart1').classed('hidden', false)
 	d3.select('#chart2').classed('hidden', true)
 })
+
+function arcTween(a) {
+	const i = d3.interpolate(this._current, a);
+	this._current = i(1);
+	return (t) => arc(i(t));
+}

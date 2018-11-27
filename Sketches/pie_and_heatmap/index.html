@@ -5,6 +5,7 @@
 	<title>Pie test</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://d3js.org/d3.v5.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Muli:400,800&amp;subset=latin-ext" rel="stylesheet">
 
 </head>
 
@@ -13,7 +14,12 @@
 
 
 <div class="charts">
-	<div id="chart1"></div>
+	<div id="chart1">
+		<div>
+			<input type="checkbox" id="scaleAngle">
+			<label for="scaleAngle">Scale by number of survey respondents in each group</label>
+		</div>
+	</div>
 	<div id="chart2" class="hidden">
 		<button type='button' id="goback">Back</button>
 	</div>
