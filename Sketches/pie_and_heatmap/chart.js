@@ -8,6 +8,10 @@ var tau = 2 * Math.PI;
 // to format all numbers with 2 decimal places
 var f = d3.format(".2f");
 
+// svg size
+pieW = 300;
+pieH = 300;
+
 // tooltip which will be shown on hover
 var tooltip = d3.select(".tooltip")
 
@@ -38,7 +42,7 @@ var pie = d3.pie()
 var arc = d3.arc()
 	.innerRadius(0)
 	.outerRadius(function (d) {
-		return (circleScale(d.data.value.mean_odds_ratio));
+		return (circleScale(d.data.value.mean_odds_ratio)) /// d.data.value.scaleFactor);
   	})
 
 
@@ -69,8 +73,17 @@ d3.csv('data_with_population.csv').then(function(data) {
 			population_perc: d.values[0].value.base_perc,
 			mean_odds_ratio: 1}
 			})
-	}, data2)
 
+		// var radii = d.values.map(da => circleScale(da.value.mean_odds_ratio))
+		// var scaleFactor = d3.mean(radii) / 80
+		// console.log(scaleFactor)
+
+		// data2[i].values.forEach(function(da, ind) {
+		// 	data2[i].values[ind]['value']['scaleFactor'] = scaleFactor;
+		// }, data2[i].values)
+
+	}, data2)
+		
 	// DRAW PIE CHARTS
 
 	var div = d3.select('#chart1')
@@ -85,10 +98,10 @@ d3.csv('data_with_population.csv').then(function(data) {
 
 	// append an svg and a g into which the pie will be drawn
 	var g = piediv.append('svg')
-		.attr('width', 300)
-		.attr('height', 300)
+		.attr('width', pieW)
+		.attr('height', pieH)
 		.append('g')
-		.attr("transform", "translate(150,150)")
+		.attr("transform", "translate(" + (pieW/2) + "," + (pieH/2) + ")")
 
 	// draw segments of the pie
 	var piepic = g.datum(function(d) {return d.values})
@@ -101,14 +114,15 @@ d3.csv('data_with_population.csv').then(function(data) {
 		.attr("d", arc)
 
 	// draw circle around pie to show the baseline
-	var circ = g.append('circle')
+	var circ = g //.datum(function(d) {console.log(d); return d[0].value.scaleFactor})
+		.append('circle')
 		.style('fill', 'none')
 		.style('stroke', colour_med)
 		.style('stroke-width', '2px')
 		.style('stroke-dasharray', '3,2')
 		.attr('cx', 0)
 		.attr('cy', 0)
-		.attr('r', circleScale(1))
+		.attr('r', circleScale(1)) //function(d) {console.log(d); return circleScale(1) / d})
 
 	// show tooltip on mouseover and add text
 	piepic.on('mouseover', function(d) {  // when mouse enters div      

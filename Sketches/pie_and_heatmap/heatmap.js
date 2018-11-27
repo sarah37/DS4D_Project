@@ -195,9 +195,9 @@ function redrawHeatmap(datanow) {
 				.attr('x', function(d) {return xScale(d.group)})
 				.attr('y', function(d) {return yScaleQ(d.question)})
 				.attr('fill', function(d) {
-					if (d.conf_lower > 1) {return colour_high}
-					else if (d.conf_upper < 1) {return colour_low}
-					else {return colour_med}
+					if (d.conf_lower > 1) {return colourScale(2)}
+					else if (d.conf_upper < 1) {return colourScale(0.5)}
+					else {return colourScale(1)}
 				})
 
 		} // end else
