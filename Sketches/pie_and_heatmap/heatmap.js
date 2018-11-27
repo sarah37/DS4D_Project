@@ -8,16 +8,16 @@ var margin = {top: 160,right: 20, bottom: 20, left: 200},
     height = 900 - margin.top - margin.bottom;
 
 //set the position and size of the svg
-var svg = d3.select("#chart2").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  	.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+var heatdiv = d3.select("#chart2")
+
+var triangle_r = "&#9654;" // right-pointing black triangle
+var triangle_d = "&#9660;" // down-pointing black triangle
 
 function redrawHeatmap(datanow) {
 
-	svg.selectAll('*').remove()
+	heatdiv.selectAll('div').remove()
 
+	// svg.selectAll('*').remove()
 
 	//find all groups
 	var x_Group = d3.set(datanow, function(d){
@@ -52,66 +52,222 @@ function redrawHeatmap(datanow) {
 		}
 	}
 
-	// console.log(oddsratios);
+	var oddsratios2 = d3.nest()
+			.key(function(d) { return d.theme; })
+			.entries(oddsratios);
 
 
 
-//set x and y axis scale and domain
+	// Define x and y scale and axis
 	var xScale = d3.scaleBand()
-		.range([0,(x_Group.length+1) * itemSize])
+		.range([200,(x_Group.length+1) * itemSize + 200])
+		.domain(oddsratios.map(function(d){return d.group;}))
 		.round(0.2);
-	xScale.domain(oddsratios.map(function(d){return d.group;}));
 
 	var xAxis = d3.axisTop(xScale)
-		.tickFormat(function (d) {
-	    		return d;
+		.tickFormat(function (d) {return d})
+		.tickSize(0)
+		.tickSizeOuter(0);
+
+	// var yScale = d3.scaleBand()
+	// 	.range([0, y_Theme.length * itemSize])
+	// 	.domain(oddsratios.map(function(d){return d.theme;}))
+	// 	.round(0.2);
+
+	// var yAxis = d3.axisLeft(yScale)
+	// 	.tickFormat(function (d) {return d});
+
+	// draw x labels first
+	heatdiv.append("div")
+		.append('svg')
+		.attr('height', margin.top)
+		.attr('width', width + margin.left + margin.right)
+		.append('g')
+		.attr("transform", "translate(0," + margin.top + ")")
+		.attr("class", "x axis")
+		.call(xAxis)
+		.selectAll('text')
+		.attr('font-weight', 'normal')
+		.style("text-anchor", "start")
+		.attr("dx", ".8em")
+		.attr("dy", ".5em")
+		.attr("transform", function (d) {
+			return "rotate(-65)";
+		});
+			
+	//draw each row into a separate div
+	var rows = heatdiv.selectAll('.heatmap-row')
+		.data(oddsratios2)
+		.enter()
+		.append('div')
+		.attr('id', function(d,i) {return 'row_' + i})
+		.classed('heatmap-row', true)
+		.append('svg')
+		.attr('width', width + margin.left + margin.right)
+		.attr('height', itemSize)
+
+	// add label on the left of every row
+	rows.append('text')
+		.attr('x', 35)
+		.attr('y', itemSize/2)
+		.attr('text-anchor', 'start')
+		.attr('font-weight', 'bold')
+		.attr('dominant-baseline', 'central')
+		.html(function(d) {return d.key})
+		.classed('ylabel', true)
+
+	// add triangle to expand/collapse
+	rows.append('text')
+		.attr('x', 10)
+		.attr('y', itemSize/2)
+		.attr('text-anchor', 'start')
+		.attr('font-weight', 'bold')
+		.attr('dominant-baseline', 'central')
+		.html(triangle_r)
+		.classed('triangle', true)
+
+	// draw rectangles
+	rows.selectAll('rect')
+		.data(function(d) {return d.values})
+		.enter()
+		.append('rect')
+		.attr('class', 'cell')
+		.attr('width', cellSize)
+		.attr('height', cellSize)
+		.attr('y', 0)
+		.attr('x', function(d) {return xScale(d.group)})
+		.attr('fill', function(d) {return colourScale(+d.or_mean)})
+		.append("title")
+		.text(function(d) {
+			return d.group + ": " + d.or_mean ;
 		});
 
-	var yScale = d3.scaleBand()
-	.range([0, y_Theme.length * itemSize])
-	.round(0.2);
-	yScale.domain(oddsratios.map(function(d){return d.theme;}));
+	rows.on('click', function(d) {
 
-	var yAxis = d3.axisLeft(yScale)
-	.tickFormat(function (d) {
-	    return d;
-	});
+		// select svg
+		var svg = d3.select(this) // *this* is the svg of the current row
 
-			
-	//draw each rectangle cell
-			var cells = svg.selectAll('rect')
-			        .data(oddsratios)
-			        .enter().append('g').append('rect')
-			        .attr('class', 'cell')
-			        .attr('width', cellSize)
-			        .attr('height', cellSize)
-			        .attr('y', function(d) { return yScale(d.theme); })
-			        .attr('x', function(d) { return xScale(d.group); })
-			        .attr('fill', function(d) { return colourScale(+d.or_mean); })
-			        .append("title")
-	          		.text(function(d) {
-	            		return d.group + ": " + d.or_mean ;
-	          		});
+		// if it is already expanded, a click should collapse it again
+		if (svg.attr('height') > itemSize) {
+			svg.attr('height', itemSize)
+			svg.select('.triangle').html(triangle_r)
+			svg.selectAll('.questions-g').remove() // remove anything previously drawn into this
+		}
+		// if it is not expanded, expand and draw question heatmap
+		else {	
+			svg.select('.triangle').html(triangle_d)
 
-	//draw x and y axis
-			    svg.append("g")
-			        .attr("class", "y axis")
-			        .call(yAxis)
-			        .selectAll('text')
-			        .attr('font-weight', 'normal');
+			g = svg.append('g').attr('class', 'questions-g') // add a fresh g
 
-			    svg.append("g")
-			        .attr("class", "x axis")
-			        .call(xAxis)
-			        .selectAll('text')
-			        .attr('font-weight', 'normal')
-			        .style("text-anchor", "start")
-			        .attr("dx", ".8em")
-			        .attr("dy", ".5em")
-			        .attr("transform", function (d) {
-			            return "rotate(-65)";
-			        });
+			var theme = d.key
+
+			var data = datanow.filter(function(d) {return d.theme == theme})
+			console.log(data)
+
+			// get number of questions
+			var questions = d3.nest()
+				.key(function(d) {return d.question})
+				.entries(data)
+			questions = questions.map(function(d) {return d.key})
+
+			// extend svg to accommodate all questions
+			svg.attr('height', (questions.length + 1) * itemSize)
+
+			// x scale can be reused from the other heatmap
+			// xScale
+
+			// define y scale: starts below the theme row, ends at number of items * itemSize
+			var yScaleQ = d3.scaleBand()
+				.range([itemSize, questions.length * itemSize + itemSize])
+				.domain(questions)
+				.round(0.2);
+
+			// questions on the left
+
+
+
+			var yAxisQ = d3.axisRight(yScaleQ)
+				.tickFormat(function (d) {return d})
+				.tickSize(0)
+
+			// y axis
+			g.append('g')
+				.attr("transform", "translate(" + 10 + "," + 0 + ")")
+				.attr("class", "y axis")
+				.call(yAxisQ)
+				.selectAll('.tick text')
+		        	.attr('font-weight', 'normal')
+				.call(wrap, margin.left-10);
+      
+			// draw rectangles for heatmap
+			g.selectAll('.question-rect')
+				.data(data)
+				.enter()
+				.append('rect')
+				.attr('class', 'question-rect')
+				.attr('width', cellSize)
+				.attr('height', cellSize)
+				.attr('x', function(d) {return xScale(d.group)})
+				.attr('y', function(d) {return yScaleQ(d.question)})
+				.attr('fill', function(d) {
+					if (d.conf_lower > 1) {return colour_high}
+					else if (d.conf_upper < 1) {return colour_low}
+					else {return colour_med}
+				})
+		} // end else
+	}) // end on click (row)
+
+	// //draw each rectangle cell
+	// var cells = svg.selectAll('rect')
+	// 	.data(oddsratios)
+	// 	.enter().append('g').append('rect')
+	// 	.attr('class', 'cell')
+	// 	.attr('width', cellSize)
+	// 	.attr('height', cellSize)
+	// 	.attr('y', function(d) { return yScale(d.theme); })
+	// 	.attr('x', function(d) { return xScale(d.group); })
+	// 	.attr('fill', function(d) { return colourScale(+d.or_mean); })
+	// 	.append("title")
+	// 		.text(function(d) {
+	// 		return d.group + ": " + d.or_mean ;
+	// 		});
+
+	// //draw x and y axis
+	// 		    svg.append("g")
+	// 		        .attr("class", "y axis")
+	// 		        .call(yAxis)
+	// 		        .selectAll('text')
+	// 		        .attr('font-weight', 'normal');
+
+	
 
 }
 
 
+// from https://bl.ocks.org/mbostock/7555321
+function wrap(text, width) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = -0.3 * itemSize //text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan")
+        	.attr("x", 0).attr("y", y)
+        	.attr("dy", ++lineNumber * lineHeight + dy + "em")
+        	.text(word);
+      }
+    }
+  });
+}

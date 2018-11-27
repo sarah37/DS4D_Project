@@ -10,9 +10,13 @@ var f = d3.format(".2f");
 var tooltip = d3.select(".tooltip")
 
 // colour scale blue - grey - orange
+var colour_high = '#77a1e5'
+var colour_med = '#fff'
+var colour_low = '#f55f21'
+
 var colourScale = d3.scaleLinear()
                 .domain([0, 1, 2])
-                .range(['#f55f21', '#ccc', '#77a1e5'])//#fee08b #1a9850
+                .range([colour_low, colour_med, colour_high])
                 .interpolate(d3.interpolateHcl);
 
 
@@ -132,7 +136,6 @@ d3.csv('data_with_population.csv').then(function(data) {
 		g.on('click', function() {
 			d3.select('#chart1').classed('hidden', true)
 			d3.select('#chart2').classed('hidden', false)
-			console.log('Redrawing heatmap for', characteristic_now)
 			redrawHeatmap(datanow)
 		})
 	})
@@ -141,14 +144,7 @@ d3.csv('data_with_population.csv').then(function(data) {
 
 
 // link to go back from heatmap to pies
- d3.select("#goback").on('click', function() {
+d3.select("#goback").on('click', function() {
 	d3.select('#chart1').classed('hidden', false)
 	d3.select('#chart2').classed('hidden', true)
- })
-
-// function to draw/redraw pies
-function drawPies(characteristics, data) {
-
-	
-
-}
+})
