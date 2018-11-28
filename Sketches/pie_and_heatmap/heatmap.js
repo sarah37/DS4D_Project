@@ -199,6 +199,10 @@ function redrawHeatmap(datanow) {
 					else if (d.conf_upper < 1) {return colourScale(0.5)}
 					else {return colourScale(1)}
 				})
+				.append("title")
+				.text(function(d) {
+					return d.group + ": " + d.odds_ratio;
+				});
 
 		} // end else
 
