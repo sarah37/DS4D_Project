@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Pie test</title>
+	<title>NHS Health and Care Experience Survey</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://d3js.org/d3.v5.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Muli:400,800&amp;subset=latin-ext" rel="stylesheet">
@@ -10,24 +10,29 @@
 </head>
 
 <body>
-<h1>Health and Care Experience Survey </h1>
-
-
-<div class="charts">
-	<div id="chart1">
-		<div>
-			<input type="checkbox" id="scaleAngle">
-			<label for="scaleAngle">Scale by number of survey respondents in each group</label>
+<div class="main">
+	<h1>Inequality in Health and Care Experience</h1>
+	<div class=header>
+		<div class="content">
+			<p>
+				This survey examines the relationship between self-reported experiences of patients and a range of patient, GP practice and regional level characteristics. The more unequal the pie glyphs The more inequity in the experience.
+			</p>
 		</div>
 	</div>
-	<div id="chart2" class="hidden">
-		<button type='button' id="goback">Back</button>
+	<div class="charts">
+		<div id="chart1">
+			<div>
+				<input type="checkbox" id="scaleAngle">
+				<label for="scaleAngle">Scale by number of survey respondents in each group</label>
+			</div>
+		</div>
+		<div id="chart2" class="hidden">
+			<button type='button' id="goback">Back</button>
+		</div>
+		<div class="tooltip"></div>
 	</div>
-	<div class="tooltip"></div>
 </div>
-
 <script type="text/javascript" src="heatmap.js"></script>
 <script type="text/javascript" src="chart.js"></script>
-
 </body>
 </html>
