@@ -62,7 +62,7 @@ function redrawHeatmap(datanow, characteristic) {
 	var xScale = d3.scaleBand()
 		.range([margin.left,(x_Group.length+1) * itemSize + margin.left])
 		.domain(oddsratios.map(function(d){return d.group;}))
-		.round(1);
+		.round(0.2);
 
 	var xAxis = d3.axisTop(xScale)
 		.tickFormat(function (d) {return d})
@@ -248,7 +248,8 @@ function redrawHeatmap(datanow, characteristic) {
 				// });
 
 					// show tooltip on mouseover and add text
-			qrects.on('mouseover', function(d) {  // when mouse enters div      
+			qrects.on('mouseover', function(d) {
+			console.log(d)  // when mouse enters div      
 				var tooltip_txt = "Odds Ratio: " + f(d.odds_ratio)
 				tooltip.html(tooltip_txt); // set current label
 				tooltip.style('display', 'block'); // set display
