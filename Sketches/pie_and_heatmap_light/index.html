@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>NHS Health and Care Experience Survey</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://d3js.org/d3.v5.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Raleway:300|Muli:400,800&amp;subset=latin-ext" rel="stylesheet">
+
+</head>
+
+<body>
+<div class="main">
+
+	<div class="howtoread"><img src="how to read_standard.png"></div>
+
+	<h1>Inequality in Health and Care Experience</h1>
+	<div class=header>
+		<div class="content">
+			<p>
+				This interactive visualisation lets you explore the differences in patient experiences across Scotland. The data shown are odds ratios (which describe differences between different groups) calculated from the 2011 Scottish Health and Care Experience Survey. The analysis examines the relationship between self-reported experiences of patients and a range of patient, GP practice and regional level characteristics. The glyphs below symbolise inequality: The less round, the more difference in the reported experiences of patients.
+			</p>
+		</div>
+	</div>
+	<div class="charts">
+		<div id="chart1">
+			<div class="leftalign">
+				<input type="checkbox" id="scaleAngle">
+				<label for="scaleAngle">Scale by number of survey respondents in each group</label>
+				<span id="howtoreadbutton">How do I read this chart?</span>
+			</div>
+			
+		</div>
+		<div id="chart2" class="hidden">
+			<button type='button' id="goback">Back</button>
+		</div>
+		<div class="tooltip"></div>
+	</div>
+</div>
+<script type="text/javascript" src="helpers.js"></script>
+<script type="text/javascript" src="heatmap.js"></script>
+<script type="text/javascript" src="chart.js"></script>
+</body>
+</html>
