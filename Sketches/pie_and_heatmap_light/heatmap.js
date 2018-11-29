@@ -1,6 +1,6 @@
 //set the size of each rectangle cell in the heatmap
 var itemSize = 80;
-var cellSize = itemSize - 1;
+var cellSize = itemSize - 3;
 
 //set margin size for the labels of x and y axis
 var margin = {top: 160,right: 20, bottom: 20, left: 300},
@@ -131,6 +131,8 @@ function redrawHeatmap(datanow, characteristic) {
 		.attr('y', 0)
 		.attr('x', function(d) {return xScale(d.group)})
 		.attr('fill', function(d) {return colourScale(+d.or_mean)})
+		.style("stroke", colour_dark)
+		.style("stroke-width", "1px")
 		// .append("title")
 		// .text(function(d) {
 		// 	return d.group + ": " + d.or_mean ;
@@ -228,6 +230,9 @@ function redrawHeatmap(datanow, characteristic) {
 					else if (d.conf_upper < 1) {return colourScale(0.5)}
 					else {return colourScale(1)}
 				})
+				.style("stroke", colour_dark)
+				.style("stroke-width", "1px")
+
 			qrects.append('text')
 				.attr('x', itemSize/2)
 				.attr('y', itemSize/2)
@@ -243,7 +248,8 @@ function redrawHeatmap(datanow, characteristic) {
 				// });
 
 					// show tooltip on mouseover and add text
-			qrects.on('mouseover', function(d) {  // when mouse enters div      
+			qrects.on('mouseover', function(d) {
+			console.log(d)  // when mouse enters div      
 				var tooltip_txt = "Odds Ratio: " + f(d.odds_ratio)
 				tooltip.html(tooltip_txt); // set current label
 				tooltip.style('display', 'block'); // set display

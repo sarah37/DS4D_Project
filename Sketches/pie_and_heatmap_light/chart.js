@@ -17,8 +17,9 @@ var tooltip = d3.select(".tooltip")
 
 // colour scale blue - grey - orange
 var colour_high = '#005bd4' //'#77a1e5'
-var colour_med = '#f3f3f3'
+var colour_med = '#fff'
 var colour_low = '#f55f21'
+var colour_dark = '#222'
 
 var colourScale = d3.scaleLinear()
                 .domain([0, 1, 3])
@@ -111,14 +112,16 @@ d3.csv('data_with_population.csv').then(function(data) {
 		.append("path")
 		.classed("seg", true)
 		.style("fill", function(d,i) {return colourScale(d.data.value.mean_odds_ratio)})
+		.style("stroke", colour_dark)
+		.style("stroke-width", "1px")
 		.attr("d", arc)
 
 	// draw circle around pie to show the baseline
 	var circ = g //.datum(function(d) {console.log(d); return d[0].value.scaleFactor})
 		.append('circle')
 		.style('fill', 'none')
-		.style('stroke', colour_med)
-		.style('stroke-width', '2px')
+		.style('stroke', colour_dark)
+		.style('stroke-width', '1px')
 		.style('stroke-dasharray', '3,2')
 		.attr('cx', 0)
 		.attr('cy', 0)
