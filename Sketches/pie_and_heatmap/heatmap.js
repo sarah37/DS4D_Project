@@ -3,7 +3,7 @@ var itemSize = 80;
 var cellSize = itemSize - 1;
 
 //set margin size for the labels of x and y axis
-var margin = {top: 160,right: 20, bottom: 20, left: 200},
+var margin = {top: 160,right: 20, bottom: 20, left: 300},
     width = 1200 - margin.left - margin.right,
     height = 900 - margin.top - margin.bottom;
 
@@ -13,9 +13,11 @@ var heatdiv = d3.select("#chart2")
 var triangle_r = "&#9654;" // right-pointing black triangle
 var triangle_d = "&#9660;" // down-pointing black triangle
 
-function redrawHeatmap(datanow) {
+function redrawHeatmap(datanow, characteristic) {
 
 	heatdiv.selectAll('div').remove()
+
+	heatdiv.append('div').html("<h2>" + characteristic + "</h2>")
 
 	//find all groups
 	var x_Group = d3.set(datanow, function(d){
@@ -58,7 +60,7 @@ function redrawHeatmap(datanow) {
 
 	// Define x and y scale and axis
 	var xScale = d3.scaleBand()
-		.range([200,(x_Group.length+1) * itemSize + 200])
+		.range([margin.left,(x_Group.length+1) * itemSize + margin.left])
 		.domain(oddsratios.map(function(d){return d.group;}))
 		.round(0.2);
 
@@ -79,11 +81,13 @@ function redrawHeatmap(datanow) {
 		.selectAll('text')
 		.attr('font-weight', 'normal')
 		.style("text-anchor", "start")
-		.attr("dx", ".8em")
+		// .attr("dx", ".8em")
 		.attr("dy", ".5em")
 		.attr("transform", function (d) {
 			return "rotate(-65)";
-		});
+		})
+		.call(wrap, margin.top * 0.8)		
+
 			
 	//draw each row into a separate div
 	var rows = heatdiv.selectAll('.heatmap-row')
@@ -117,7 +121,7 @@ function redrawHeatmap(datanow) {
 		.classed('triangle', true)
 
 	// draw rectangles
-	rows.selectAll('rect')
+	var rects = rows.selectAll('rect')
 		.data(function(d) {return d.values})
 		.enter()
 		.append('rect')
@@ -127,10 +131,29 @@ function redrawHeatmap(datanow) {
 		.attr('y', 0)
 		.attr('x', function(d) {return xScale(d.group)})
 		.attr('fill', function(d) {return colourScale(+d.or_mean)})
-		.append("title")
-		.text(function(d) {
-			return d.group + ": " + d.or_mean ;
-		});
+		// .append("title")
+		// .text(function(d) {
+		// 	return d.group + ": " + d.or_mean ;
+		// });
+
+	// show tooltip on mouseover and add text
+	rects.on('mouseover', function(d) {  // when mouse enters div      
+		var tooltip_txt = "Mean Odds Ratio: " + f(d.or_mean)
+		tooltip.html(tooltip_txt); // set current label
+		tooltip.style('display', 'block'); // set display
+	});                                                           
+
+	// hide tooltip on mouseout
+	rects.on('mouseout', function() { // when mouse leaves div                        
+			tooltip.style('display', 'none'); // hide tooltip for that element
+	});
+
+	// move tooltip with the mouse
+	rects.on('mousemove', function(d) { // when mouse moves                  
+		tooltip.style('top', (d3.event.layerY + 10) + 'px') // always 10px below the cursor
+			.style('left', (d3.event.layerX + 10) + 'px'); // always 10px to the right of the mouse
+	});
+
 
 	rows.on('click', function(d) {
 
@@ -185,24 +208,58 @@ function redrawHeatmap(datanow) {
 				.call(wrap, margin.left-10);
       
 			// draw rectangles for heatmap
-			g.selectAll('.question-rect')
+			var qrects = g.selectAll('.question-rect')
 				.data(data)
 				.enter()
-				.append('rect')
+				.append('g')
+				.attr("transform", function(d) {
+					return "translate(" + xScale(d.group) + "," + yScaleQ(d.question) + ")"
+				})
+			qrects.append('rect')
 				.attr('class', 'question-rect')
 				.attr('width', cellSize)
 				.attr('height', cellSize)
-				.attr('x', function(d) {return xScale(d.group)})
-				.attr('y', function(d) {return yScaleQ(d.question)})
+				// .attr('x', function(d) {return xScale(d.group)})
+				// .attr('y', function(d) {return yScaleQ(d.question)})
+				.attr('x', 0)
+				.attr('y', 0)
 				.attr('fill', function(d) {
 					if (d.conf_lower > 1) {return colourScale(2)}
 					else if (d.conf_upper < 1) {return colourScale(0.5)}
 					else {return colourScale(1)}
 				})
-				.append("title")
-				.text(function(d) {
-					return d.group + ": " + d.odds_ratio;
-				});
+			qrects.append('text')
+				.attr('x', itemSize/2)
+				.attr('y', itemSize/2)
+				.attr('class', 'plusminus')
+				.html(function(d) {
+					if (d.conf_lower > 1) {return "+"}
+					else if (d.conf_upper < 1) {return "-"}
+					else {return "o"}
+				})
+				// .append("title")
+				// .text(function(d) {
+				// 	return d.group + ": " + d.odds_ratio;
+				// });
+
+					// show tooltip on mouseover and add text
+			qrects.on('mouseover', function(d) {  // when mouse enters div      
+				var tooltip_txt = "Odds Ratio: " + f(d.odds_ratio)
+				tooltip.html(tooltip_txt); // set current label
+				tooltip.style('display', 'block'); // set display
+			});                                                           
+
+			// hide tooltip on mouseout
+			qrects.on('mouseout', function() { // when mouse leaves div                        
+					tooltip.style('display', 'none'); // hide tooltip for that element
+			});
+
+			// move tooltip with the mouse
+			qrects.on('mousemove', function(d) { // when mouse moves                  
+				tooltip.style('top', (d3.event.layerY + 10) + 'px') // always 10px below the cursor
+					.style('left', (d3.event.layerX + 10) + 'px'); // always 10px to the right of the mouse
+			});
+
 
 		} // end else
 

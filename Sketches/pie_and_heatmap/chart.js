@@ -147,7 +147,7 @@ d3.csv('data_with_population.csv').then(function(data) {
 		console.log('heatmap for', d.key)
 		d3.select('#chart1').classed('hidden', true)
 		d3.select('#chart2').classed('hidden', false)
-		redrawHeatmap(data.filter(function(da) {return da.characteristic == d.key}))
+		redrawHeatmap(data.filter(function(da) {return da.characteristic == d.key}), d.key)
 	})
 
 	d3.select("#scaleAngle").on("change", function() {
