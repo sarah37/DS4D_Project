@@ -24,7 +24,7 @@ var colour_dark = '#222'
 var colourScale = d3.scaleLinear()
                 .domain([0, 1, 3])
                 .range([colour_low, colour_med, colour_high])
-                .interpolate(d3.interpolateHcl);
+                // .interpolate(d3.interpolateHcl);
 
 
 var circleScale = d3.scalePow()
